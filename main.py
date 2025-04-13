@@ -19,7 +19,6 @@ def run_sort(script_path, num_processes):
             print("MPI script executed successfully.")
             print("Output:\n", stdout.decode())
         else:
-            print(f"MPI script failed with error code {process.returncode}:")
             print("Error:\n", stderr.decode())
 
     except FileNotFoundError:
@@ -30,8 +29,9 @@ def run_sort(script_path, num_processes):
 
 
 num_processes = [4,8,16,32]
+sort_path = "Sorting_Algorithms/"
 sort_scripts = [
-    "mpi_selection_sort.py",
+    sort_path+"selection_sort.py",
     ]
 
 
@@ -45,5 +45,7 @@ def main():
     print("All scripts executed successfully.")
 
           
+if __name__ == "__main__":
+    main()
         
 
