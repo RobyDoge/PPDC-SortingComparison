@@ -2,35 +2,26 @@ from mpi4py import MPI
 import numpy as np
 import time
 
-def selection_sort(arr):
-    """Sequential selection sort implementation"""
-    n = len(arr)
-    for i in range(n):
-        min_idx = i
-        for j in range(i+1, n):
-            if arr[j] < arr[min_idx]:
-                min_idx = j
-        arr[i], arr[min_idx] = arr[min_idx], arr[i]
-    return arr
+from Sorting_Algorithms.selection_sort import selection_sort
 
-def parallel_selection_sort():
+def parallel_sort():
     comm = MPI.COMM_WORLD
     rank = comm.Get_rank()
     size = comm.Get_size()
     
-    # Root process read data and distributes it
+    
     if rank == 0:
-        data = np.loadtxt('1m_data.txt', dtype=int)
+        filepath = 'Data/1m_data.txt'
+        data = np.loadtxt(filepath, dtype=int)
         n = len(data)
 
         print(f"Data Finish Being Read")
-
+        print(size)
         # Record start time
         start_time = time.time()
         
         # Calculate chunk size for each process
         chunk_size = n // size
-        print(f"Chunk size: {chunk_size}")
         remainder = n % size
         
         # Store the starting position for each chunk
@@ -40,14 +31,11 @@ def parallel_selection_sort():
         
         # Split data for each process
         chunks = [data[positions[i]:positions[i+1]] for i in range(size)]
-        print(f"Data split into {len(chunks)} chunks")
     else:
         chunks = None
     
     # Scatter data to all processes
     local_chunk = comm.scatter(chunks, root=0)
-    print(f"Process {rank} received chunk: {len(local_chunk)} elements")
-
     # Each process sorts its local chunk
     local_sorted = selection_sort(local_chunk)
     
@@ -55,6 +43,7 @@ def parallel_selection_sort():
     sorted_chunks = comm.gather(local_sorted, root=0)
     
     if rank == 0:
+        print(f"Data Finish Being Sorted")
         # Merge the sorted chunks
         final_sorted = []
         while any(len(chunk) > 0 for chunk in sorted_chunks):
@@ -74,10 +63,6 @@ def parallel_selection_sort():
         
         # Record end time
         end_time = time.time()
-        
-        print(f"Sorted array (first 10 elements): {final_sorted[:10]}")
-        print(f"Time taken: {end_time - start_time:.4f} seconds")
-        print(f"Number of processes used: {size}")
 
 if __name__ == "__main__":
-    parallel_selection_sort()
+    parallel_sort()
