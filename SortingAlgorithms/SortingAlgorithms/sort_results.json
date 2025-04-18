@@ -28,5 +28,29 @@
         "data_size": 1000000,
         "num_cpus": 16,
         "time_seconds": 46.365756600003806
+    },
+    {
+        "algorithm": "BucketSort",
+        "data_size": 10000000,
+        "num_cpus": 16,
+        "time_seconds": 0.045659299998078495
+    },
+    {
+        "algorithm": "BucketSort",
+        "data_size": 10000000,
+        "num_cpus": 16,
+        "time_seconds": 0.013777000000118278
+    },
+    {
+        "algorithm": "BucketSort",
+        "data_size": 1000000,
+        "num_cpus": 16,
+        "time_seconds": 0.1266003000055207
+    },
+    {
+        "algorithm": "BucketSort",
+        "data_size": 10000000,
+        "num_cpus": 16,
+        "time_seconds": 1.0939541999978246
     }
 ]

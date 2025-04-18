@@ -1,31 +1,21 @@
 // sort_factory.cpp
 #include "SortFactory.h"
-#include "SelectionSort.h"
 #include <stdexcept>
 
+#include "SelectionSort.h"
+#include "BucketSort.h"
+#include "ISortingAlgorithm.h"
 
-class SelectionSortAdapter : public SortAlgorithm
-{
 
-public:
-    void Sort(std::vector<int>& data) override
-	{
-        _selectSort.Sort(data);
-    }
-
-    std::string GetName() const override {
-        return _selectSort.GetName();
-    }
-private:
-    SelectionSort _selectSort;
-};
-
-// Factory method to create sort algorithms
-std::unique_ptr<SortAlgorithm> SortFactory::CreateSortAlgorithm(const std::string& algorithmName)
+std::unique_ptr<ISortingAlgorithm> SortFactory::CreateSortAlgorithm(const std::string& algorithmName)
 {
     if (algorithmName == "SelectionSort") {
-        return std::make_unique<SelectionSortAdapter>();
+        return std::make_unique<SelectionSort>();
     }
+
+	if (algorithmName == "BucketSort") {
+		return std::make_unique<BucketSort>();
+	}
 
     // Add more sort algorithms here as needed
 

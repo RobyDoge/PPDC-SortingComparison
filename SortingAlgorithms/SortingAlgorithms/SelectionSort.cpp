@@ -10,9 +10,6 @@ SelectionSort::SelectionSort() {
     MPI_Comm_rank(MPI_COMM_WORLD, &_rank);
 }
 
-SelectionSort::~SelectionSort() {
-}
-
 std::string SelectionSort::GetName() const
 {
     return "SelectionSort";

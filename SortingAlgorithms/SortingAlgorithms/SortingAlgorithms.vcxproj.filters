@@ -27,6 +27,9 @@
     <ClCompile Include="JsonWriter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BucketSort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SortFactory.h">
@@ -38,8 +41,22 @@
     <ClInclude Include="JsonWriter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BucketSort.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ISortingAlgorithm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="sort_results.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SortingAlgorithms.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

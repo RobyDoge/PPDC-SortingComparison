@@ -134,18 +134,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BucketSort.cpp" />
     <ClCompile Include="JsonWriter.cpp" />
     <ClCompile Include="SelectionSort.cpp" />
     <ClCompile Include="SortFactory.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BucketSort.h" />
+    <ClInclude Include="ISortingAlgorithm.h" />
     <ClInclude Include="JsonWriter.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SelectionSort.h" />
     <ClInclude Include="SortFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="sort_results.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SortingAlgorithms.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

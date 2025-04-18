@@ -47,20 +47,13 @@ int main(int argc, char** argv) {
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
 
-    // Parse command line arguments
-    if (argc < 3 && rank == 0) {
-        std::cerr << "Usage: " << argv[0] << " <sort_algorithm> [data_size=10000]" << std::endl;
-        MPI_Abort(MPI_COMM_WORLD, 1);
-        return 1;
-    }
-
     std::string algorithmName = argc > 1 ? argv[1] : "SelectionSort";
     std::string filepath = "../../Data/10m_data.txt";
 	int dataSize = filepath.contains("10") ? 10'000'000 : 1'000'000;
    
 
     try {
-        std::unique_ptr<SortAlgorithm> sorter = SortFactory::CreateSortAlgorithm(algorithmName);
+        std::unique_ptr<ISortingAlgorithm> sorter = SortFactory::CreateSortAlgorithm(algorithmName);
 
         std::vector<int> data;
         if (rank == 0) 
@@ -74,7 +67,7 @@ int main(int argc, char** argv) {
             std::cout<< "Data done reading\n"<<std::endl;
         }
         MPI_Bcast(&dataSize, 1, MPI_INT, 0, MPI_COMM_WORLD);
-
+        
 
         if (rank != 0) {
             data.resize(dataSize);
@@ -83,6 +76,7 @@ int main(int argc, char** argv) {
         MPI_Bcast(data.data(), dataSize, MPI_INT, 0, MPI_COMM_WORLD);
 
         double startTime = MPI_Wtime();
+		
         sorter->Sort(data);
         double endTime = MPI_Wtime();
 

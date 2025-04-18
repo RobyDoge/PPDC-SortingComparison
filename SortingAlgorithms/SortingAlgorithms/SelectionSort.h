@@ -1,19 +1,22 @@
-// selection_sort.h
 #ifndef SELECTION_SORT_H
 #define SELECTION_SORT_H
 
 #include <vector>
 #include <string>
 #include <mpi.h>
+#include "ISortingAlgorithm.h"
 
-class SelectionSort
+class SelectionSort : public ISortingAlgorithm
 {
 public:
     SelectionSort();
-    ~SelectionSort();
-    void Sort(std::vector<int>& data);
-	std::vector<int> MergeData(std::vector<std::vector<int>>& data);
-    std::string GetName() const;
+	~SelectionSort() override = default; 
+    void Sort(std::vector<int>& data) override;
+    std::string GetName() const override;
+
+
+private:
+    static std::vector<int> MergeData(std::vector<std::vector<int>>& vectors);
 
 private:
     int _size;      
