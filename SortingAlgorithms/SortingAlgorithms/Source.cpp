@@ -6,30 +6,8 @@
 #include <fstream>
 #include <mpi.h>
 #include "SortFactory.h"
-
+#include "JsonWriter.h"
 // Simple JSON writer
-class JsonWriter {
-private:
-    std::ofstream _file;
-
-public:
-    JsonWriter(const std::string& filename) {
-        _file.open(filename);
-        _file << "{\n";
-    }
-
-    ~JsonWriter() {
-        if (_file.is_open()) {
-            _file << "\n}\n";
-            _file.close();
-        }
-    }
-
-    void addField(const std::string& key, const std::string& value, bool addComma = true) {
-        _file << "  \"" << key << "\": \"" << value << "\"" << (addComma ? "," : "") << "\n";
-    }
-};
-
 
 std::vector<int> ReadData(const std::string& filepath) {
 	std::ifstream f(filepath);
@@ -41,8 +19,8 @@ std::vector<int> ReadData(const std::string& filepath) {
 	}
 
     int number;
-    int max_numbers = 999;
-    while(f>>number && max_numbers)
+    int max_numbers = 1000;
+    while(f>>number /*&& max_numbers*/)
     {
         max_numbers--;
 		data.push_back(number);
@@ -77,8 +55,9 @@ int main(int argc, char** argv) {
     }
 
     std::string algorithmName = argc > 1 ? argv[1] : "SelectionSort";
-    int dataSize = argc > 2 ? std::stoi(argv[2]) : 10'000'000;
-    std::string filepath = "../../Data/1m_data.txt";
+    std::string filepath = "../../Data/10m_data.txt";
+	int dataSize = filepath.contains("10") ? 10'000'000 : 1'000'000;
+   
 
     try {
         std::unique_ptr<SortAlgorithm> sorter = SortFactory::CreateSortAlgorithm(algorithmName);
@@ -92,9 +71,8 @@ int main(int argc, char** argv) {
 				MPI_Abort(MPI_COMM_WORLD, 1);
 				return 1;
 			}
+            std::cout<< "Data done reading\n"<<std::endl;
         }
-
-        std::cout << data.size();
         MPI_Bcast(&dataSize, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
 
@@ -111,7 +89,7 @@ int main(int argc, char** argv) {
 		if (rank == 0) 
         {
 			bool sorted = IsSorted(data);
-			std::cout << "Array is " << (sorted ? "correctly" : "not") << " sorted." << std::endl;
+			std::cout << "Array is " << (sorted ? "correctly" : "not") << " sorted." << std::endl<<std::endl;
             if(!sorted)
             {
 				std::cout << data.size() << " elements are not sorted correctly: ";
@@ -119,32 +97,18 @@ int main(int argc, char** argv) {
 				{
                     std::cout << num << " ";
 				}
+                MPI_Abort(MPI_COMM_WORLD, 1);
+                return 1;
             }
 		}
         
         if (rank == 0) {
             double elapsedTime = endTime - startTime;
-
+            std::cout<<"Saving Info";
             // Write results to JSON file
             std::string filename = "sort_results.json";
             JsonWriter writer(filename);
-            writer.addField("algorithm", sorter->GetName());
-            writer.addField("num_cpus", std::to_string(size));
-            writer.addField("data_size", std::to_string(dataSize));
-            writer.addField("time_seconds", std::to_string(elapsedTime), false);
-
-            std::cout << "Sorting completed in " << elapsedTime << " seconds" << std::endl;
-            std::cout << "Results written to " << filename << std::endl;
-
-            // Check if sorting was successful (for verification)
-            bool sorted = true;
-            for (int i = 1; i < dataSize; i++) {
-                if (data[i - 1] > data[i]) {
-                    sorted = false;
-                    break;
-                }
-            }
-            std::cout << "Array is " << (sorted ? "correctly" : "not") << " sorted." << std::endl;
+			writer.AddEntry(sorter->GetName(), size, dataSize, elapsedTime);
         }
     }
     catch (const std::exception& e) {

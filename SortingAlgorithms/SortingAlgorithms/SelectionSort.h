@@ -12,6 +12,7 @@ public:
     SelectionSort();
     ~SelectionSort();
     void Sort(std::vector<int>& data);
+	std::vector<int> MergeData(std::vector<std::vector<int>>& data);
     std::string GetName() const;
 
 private:

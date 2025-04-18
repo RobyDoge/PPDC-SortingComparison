@@ -134,13 +134,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="JsonWriter.cpp" />
     <ClCompile Include="SelectionSort.cpp" />
     <ClCompile Include="SortFactory.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="JsonWriter.h" />
     <ClInclude Include="SelectionSort.h" />
     <ClInclude Include="SortFactory.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="sort_results.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

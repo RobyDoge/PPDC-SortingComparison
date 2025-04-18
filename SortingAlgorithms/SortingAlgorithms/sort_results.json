@@ -1,7 +1,32 @@
-{
-  "algorithm": "SelectionSort",
-  "num_cpus": "16",
-  "data_size": "1000",
-  "time_seconds": "0.001255"
-
-}
+[
+    {
+        "algorithm": "SelectionSort",
+        "data_size": 1000,
+        "num_cpus": 16,
+        "time_seconds": 0.004196999987470917
+    },
+    {
+        "algorithm": "SelectionSort",
+        "data_size": 1000,
+        "num_cpus": 16,
+        "time_seconds": 0.004095399999641813
+    },
+    {
+        "algorithm": "SelectionSort",
+        "data_size": 1000,
+        "num_cpus": 16,
+        "time_seconds": 0.0040908000082708895
+    },
+    {
+        "algorithm": "SelectionSort",
+        "data_size": 1000000,
+        "num_cpus": 16,
+        "time_seconds": 45.609794999996666
+    },
+    {
+        "algorithm": "SelectionSort",
+        "data_size": 1000000,
+        "num_cpus": 16,
+        "time_seconds": 46.365756600003806
+    }
+]
