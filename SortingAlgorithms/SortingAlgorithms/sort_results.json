@@ -1,0 +1,7 @@
+{
+  "algorithm": "SelectionSort",
+  "num_cpus": "16",
+  "data_size": "1000",
+  "time_seconds": "0.001255"
+
+}
