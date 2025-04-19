@@ -41,28 +41,6 @@ void SelectionSort::Sort(std::vector<int>& data, double& commTime)
         if (min_idx != i) {
             std::swap(localData[i], localData[min_idx]);
         }
-
-        // Print progress every 20% with different colors
-        if (i % (localData.size() / 5) == 0) {
-            int progress = (i * 100) / localData.size();
-            std::string color;
-			std::string baseColor = "\033[0m"; // Reset color
-            if (progress < 20) {
-                color = "\033[31m"; // Red
-            } else if (progress < 40) {
-                color = "\033[33m"; // Yellow
-            } else if (progress < 60) {
-                color = "\033[32m"; // Green
-            } else if (progress < 80) {
-                color = "\033[36m"; // Cyan
-            } else {
-                color = "\033[34m"; // Blue
-            }
-            
-
-            std::cout << "Rank " << _rank << " sorting progress: " <<color
-                      << progress << "%" << "\033[0m" << std::endl;
-        }
     }
 
     std::vector<std::vector<int>> globalMatrix;

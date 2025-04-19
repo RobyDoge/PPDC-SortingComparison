@@ -19,10 +19,8 @@ std::vector<int> ReadData(const std::string& filepath) {
 	}
 
     int number;
-    int max_numbers = 64000;
-    while(f>>number /*&& max_numbers*/)
+    while(f>>number)
     {
-        max_numbers--;
 		data.push_back(number);
     }
     f.close();
@@ -50,7 +48,6 @@ int main(int argc, char** argv) {
     std::string algorithmName = argc > 1 ? argv[1] : "SelectionSort";
     std::string filepath = argc > 2 ? argv[2] : "../../Data/1m_data.txt";
 	int dataSize = filepath.contains("10") ? 10'000'000 : 1'000'000;
-    //dataSize = 64000;
 
     try {
 	    std::unique_ptr<ISortingAlgorithm> sorter = SortFactory::CreateSortAlgorithm(algorithmName);

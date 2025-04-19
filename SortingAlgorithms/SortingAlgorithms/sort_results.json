@@ -180,5 +180,13 @@
         "numCpus": 16,
         "sortTime": 7.431888099992648,
         "totalTime": 7.432013799989363
+    },
+    {
+        "algorithm": "RankSort",
+        "commTime": 5.521043099957751,
+        "dataSize": 500000,
+        "numCpus": 16,
+        "sortTime": 410.53934980003396,
+        "totalTime": 416.0563640000182
     }
 ]
