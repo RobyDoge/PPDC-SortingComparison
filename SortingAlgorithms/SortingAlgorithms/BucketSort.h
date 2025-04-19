@@ -12,7 +12,7 @@ class BucketSort  : public ISortingAlgorithm
 public:
 	BucketSort();
 	~BucketSort() override = default;
-	void Sort(std::vector<int>& data) override;
+	void Sort(std::vector<int>& data, double& commTime) override;
 	std::string GetName() const override;
 private:
 	int _size;

@@ -11,12 +11,12 @@ class SelectionSort : public ISortingAlgorithm
 public:
     SelectionSort();
 	~SelectionSort() override = default; 
-    void Sort(std::vector<int>& data) override;
+    void Sort(std::vector<int>& data, double& commTime) override;
     std::string GetName() const override;
 
 
 private:
-    static std::vector<int> MergeData(std::vector<std::vector<int>>& vectors);
+    static std::vector<int> MergeData(const std::vector<std::vector<int>>& vectors);
 
 private:
     int _size;      

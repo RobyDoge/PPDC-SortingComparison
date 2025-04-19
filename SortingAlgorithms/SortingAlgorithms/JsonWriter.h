@@ -10,7 +10,7 @@ class JsonWriter
 public:
     JsonWriter(const std::string& filename);
     ~JsonWriter();
-     void AddEntry(const std::string& algorithm, int num_cpus, int data_size, double time_seconds);
+     void AddEntry(const std::string& algorithm, int numCpus, int dataSize, double totalTime, double commTime);
 
 private:
     std::string _filename;

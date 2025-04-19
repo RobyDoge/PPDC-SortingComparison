@@ -20,7 +20,7 @@ std::vector<int> ReadData(const std::string& filepath) {
 
     int number;
     int max_numbers = 1000;
-    while(f>>number /*&& max_numbers*/)
+    while(f>>number/* && max_numbers*/)
     {
         max_numbers--;
 		data.push_back(number);
@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
     MPI_Comm_size(MPI_COMM_WORLD, &size);
 
     std::string algorithmName = argc > 1 ? argv[1] : "SelectionSort";
-    std::string filepath = "../../Data/10m_data.txt";
+    std::string filepath = "../../Data/1m_data.txt";
 	int dataSize = filepath.contains("10") ? 10'000'000 : 1'000'000;
    
 
@@ -75,10 +75,10 @@ int main(int argc, char** argv) {
 
         MPI_Bcast(data.data(), dataSize, MPI_INT, 0, MPI_COMM_WORLD);
 
-        double startTime = MPI_Wtime();
-		
-        sorter->Sort(data);
-        double endTime = MPI_Wtime();
+        double startTotalTime = MPI_Wtime();
+        double commTime{};
+        sorter->Sort(data,commTime);
+        double endTotalTime = MPI_Wtime();
 
 		if (rank == 0) 
         {
@@ -97,12 +97,12 @@ int main(int argc, char** argv) {
 		}
         
         if (rank == 0) {
-            double elapsedTime = endTime - startTime;
+            double elapsedTime = endTotalTime - startTotalTime;
             std::cout<<"Saving Info";
             // Write results to JSON file
             std::string filename = "sort_results.json";
             JsonWriter writer(filename);
-			writer.AddEntry(sorter->GetName(), size, dataSize, elapsedTime);
+			writer.AddEntry(sorter->GetName(), size, dataSize, elapsedTime, commTime);
         }
     }
     catch (const std::exception& e) {

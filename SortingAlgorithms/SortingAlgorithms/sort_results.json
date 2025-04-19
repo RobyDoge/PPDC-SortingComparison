@@ -52,5 +52,37 @@
         "data_size": 10000000,
         "num_cpus": 16,
         "time_seconds": 1.0939541999978246
+    },
+    {
+        "algorithm": "BucketSort",
+        "data_size": 10000000,
+        "num_cpus": 16,
+        "time_seconds": 0.02531789999920875
+    },
+    {
+        "algorithm": "BucketSort",
+        "data_size": 10000000,
+        "num_cpus": 16,
+        "time_seconds": 0.03429159999359399
+    },
+    {
+        "algorithm": "BucketSort",
+        "data_size": 10000000,
+        "num_cpus": 4,
+        "time_seconds": 0.00503230000322219
+    },
+    {
+        "algorithm": "SelectionSort",
+        "data_size": 1000000,
+        "num_cpus": 16,
+        "time_seconds": 40.21505449998949
+    },
+    {
+        "algorithm": "SelectionSort",
+        "commTime": 1.5439352999674156,
+        "dataSize": 1000000,
+        "numCpus": 16,
+        "sortTime": 41.4860870000266,
+        "totalTime": 43.030022299994016
     }
 ]

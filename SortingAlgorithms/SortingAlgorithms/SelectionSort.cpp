@@ -15,8 +15,11 @@ std::string SelectionSort::GetName() const
     return "SelectionSort";
 }
 
-void SelectionSort::Sort(std::vector<int>& data) {
+void SelectionSort::Sort(std::vector<int>& data, double& commTime)
+{
     int n = data.size();
+    
+    double startTime;
 
     int local_size = n / _size;
     int remainder = n % _size;
@@ -69,7 +72,9 @@ void SelectionSort::Sort(std::vector<int>& data) {
         sizes[0] = local_size;
 
         for (int i = 1; i < _size; ++i) {
+			startTime = MPI_Wtime();
             MPI_Recv(&sizes[i], 1, MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+			commTime += MPI_Wtime() - startTime;
         }
 
         globalMatrix.resize(_size);
@@ -82,13 +87,17 @@ void SelectionSort::Sort(std::vector<int>& data) {
         }
 
         for (int i = 1; i < _size; ++i) {
+			startTime = MPI_Wtime();
             MPI_Recv(globalMatrix[i].data(), sizes[i], MPI_INT, i, 1, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+			commTime += MPI_Wtime() - startTime;
         }
 	}
     else
     {
+		startTime = MPI_Wtime();
         MPI_Send(&local_size, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
         MPI_Send(localData.data(), local_size, MPI_INT, 0, 1, MPI_COMM_WORLD);
+		commTime += MPI_Wtime() - startTime;
     }
 
     if (_rank == 0)
@@ -98,10 +107,12 @@ void SelectionSort::Sort(std::vector<int>& data) {
         data = MergeData(globalMatrix);
     }
 
+	startTime = MPI_Wtime();
     MPI_Bcast(data.data(), n, MPI_INT, 0, MPI_COMM_WORLD);
+	commTime += MPI_Wtime() - startTime;
 }
 
-std::vector<int> SelectionSort::MergeData(std::vector<std::vector<int>>& vectors)
+std::vector<int> SelectionSort::MergeData(const std::vector<std::vector<int>>& vectors)
 {
     struct Element {
         int value;
@@ -134,8 +145,6 @@ std::vector<int> SelectionSort::MergeData(std::vector<std::vector<int>>& vectors
         int vec_index = current.vector_index;
         int elem_index = current.element_index;
 
-        // If there are more elements in the vector from which the current element came,
-        // add the next element to the min-heap
         if (elem_index + 1 < vectors[vec_index].size()) {
             min_heap.push({ vectors[vec_index][elem_index + 1], vec_index, elem_index + 1 });
         }
