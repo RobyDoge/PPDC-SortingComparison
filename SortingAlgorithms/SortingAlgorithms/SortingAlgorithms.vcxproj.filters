@@ -30,6 +30,9 @@
     <ClCompile Include="BucketSort.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="OddEvenSort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SortFactory.h">
@@ -48,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ISortingAlgorithm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OddEvenSort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

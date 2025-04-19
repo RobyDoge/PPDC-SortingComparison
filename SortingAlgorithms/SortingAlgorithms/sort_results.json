@@ -84,5 +84,37 @@
         "numCpus": 16,
         "sortTime": 41.4860870000266,
         "totalTime": 43.030022299994016
+    },
+    {
+        "algorithm": "SelectionSort",
+        "commTime": 0.8763902999926358,
+        "dataSize": 1000000,
+        "numCpus": 16,
+        "sortTime": 42.72550020000199,
+        "totalTime": 43.601890499994624
+    },
+    {
+        "algorithm": "OddEvenSort",
+        "commTime": 0.0,
+        "dataSize": 64,
+        "numCpus": 16,
+        "sortTime": 0.0029474000039044768,
+        "totalTime": 0.0029474000039044768
+    },
+    {
+        "algorithm": "OddEvenSort",
+        "commTime": 0.0,
+        "dataSize": 1000000,
+        "numCpus": 16,
+        "sortTime": 0.1333638000069186,
+        "totalTime": 0.1333638000069186
+    },
+    {
+        "algorithm": "OddEvenSort",
+        "commTime": 0.030188599950633943,
+        "dataSize": 1000000,
+        "numCpus": 16,
+        "sortTime": 0.09940780006581917,
+        "totalTime": 0.12959640001645312
     }
 ]

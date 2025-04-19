@@ -7,7 +7,7 @@
 #include <mpi.h>
 #include "SortFactory.h"
 #include "JsonWriter.h"
-// Simple JSON writer
+
 
 std::vector<int> ReadData(const std::string& filepath) {
 	std::ifstream f(filepath);
@@ -19,8 +19,8 @@ std::vector<int> ReadData(const std::string& filepath) {
 	}
 
     int number;
-    int max_numbers = 1000;
-    while(f>>number/* && max_numbers*/)
+    int max_numbers = 64;
+    while(f>>number /*&& max_numbers*/)
     {
         max_numbers--;
 		data.push_back(number);
@@ -30,13 +30,13 @@ std::vector<int> ReadData(const std::string& filepath) {
     
 }
 
-bool IsSorted(const std::vector<int>& data) {
+int IsSorted(const std::vector<int>& data) {
 	for (size_t i = 1; i < data.size(); ++i) {
 		if (data[i - 1] > data[i]) {
-			return false;
+			return i;
 		}
 	}
-	return true;
+	return -1;
 }
 
 int main(int argc, char** argv) {
@@ -48,8 +48,9 @@ int main(int argc, char** argv) {
     MPI_Comm_size(MPI_COMM_WORLD, &size);
 
     std::string algorithmName = argc > 1 ? argv[1] : "SelectionSort";
-    std::string filepath = "../../Data/1m_data.txt";
+    std::string filepath = argc > 2 ? argv[2] : "../../Data/1m_data.txt";
 	int dataSize = filepath.contains("10") ? 10'000'000 : 1'000'000;
+    //dataSize = 64;
    
 
     try {
@@ -79,18 +80,26 @@ int main(int argc, char** argv) {
         double commTime{};
         sorter->Sort(data,commTime);
         double endTotalTime = MPI_Wtime();
-
 		if (rank == 0) 
         {
-			bool sorted = IsSorted(data);
-			std::cout << "Array is " << (sorted ? "correctly" : "not") << " sorted." << std::endl<<std::endl;
-            if(!sorted)
+			int sorted = IsSorted(data);
+			std::cout << "Array is " << (sorted == -1 ? "correctly" : "not") << " sorted." <<std::endl;
+			std::cout << "The problem happened at index: " << sorted << std::endl;
+            if(sorted != -1)
             {
-				std::cout << data.size() << " elements are not sorted correctly: ";
-				for (const int& num : data)
+				/*for (int i = sorted - 2; i <= sorted + 2; i++)
 				{
-                    std::cout << num << " ";
+					std::cout << data[i] << " ";
 				}
+				std::cout << std::endl;*/
+
+				for (auto i : data)
+				{
+					std::cout << i << " ";
+				}
+                std::cout << std::endl;
+
+
                 MPI_Abort(MPI_COMM_WORLD, 1);
                 return 1;
             }

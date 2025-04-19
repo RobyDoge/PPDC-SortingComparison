@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClCompile Include="BucketSort.cpp" />
     <ClCompile Include="JsonWriter.cpp" />
+    <ClCompile Include="OddEvenSort.cpp" />
     <ClCompile Include="SelectionSort.cpp" />
     <ClCompile Include="SortFactory.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="BucketSort.h" />
     <ClInclude Include="ISortingAlgorithm.h" />
     <ClInclude Include="JsonWriter.h" />
+    <ClInclude Include="OddEvenSort.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SelectionSort.h" />
     <ClInclude Include="SortFactory.h" />

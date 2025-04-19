@@ -28,7 +28,8 @@ void SelectionSort::Sort(std::vector<int>& data, double& commTime)
         local_size++;
     }
     std::vector<int> localData = std::vector<int>(data.begin() + local_start, data.begin() + local_start + local_size);
-    for (int i = 0; i < localData.size() - 1; i++) {
+
+	for (int i = 0; i < localData.size() - 1; i++) {
         int min_idx = i;
 
         for (int j = i + 1; j < localData.size(); j++) {
