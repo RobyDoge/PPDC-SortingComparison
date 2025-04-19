@@ -1,84 +1,6 @@
 [
     {
         "algorithm": "SelectionSort",
-        "data_size": 1000,
-        "num_cpus": 16,
-        "time_seconds": 0.004196999987470917
-    },
-    {
-        "algorithm": "SelectionSort",
-        "data_size": 1000,
-        "num_cpus": 16,
-        "time_seconds": 0.004095399999641813
-    },
-    {
-        "algorithm": "SelectionSort",
-        "data_size": 1000,
-        "num_cpus": 16,
-        "time_seconds": 0.0040908000082708895
-    },
-    {
-        "algorithm": "SelectionSort",
-        "data_size": 1000000,
-        "num_cpus": 16,
-        "time_seconds": 45.609794999996666
-    },
-    {
-        "algorithm": "SelectionSort",
-        "data_size": 1000000,
-        "num_cpus": 16,
-        "time_seconds": 46.365756600003806
-    },
-    {
-        "algorithm": "BucketSort",
-        "data_size": 10000000,
-        "num_cpus": 16,
-        "time_seconds": 0.045659299998078495
-    },
-    {
-        "algorithm": "BucketSort",
-        "data_size": 10000000,
-        "num_cpus": 16,
-        "time_seconds": 0.013777000000118278
-    },
-    {
-        "algorithm": "BucketSort",
-        "data_size": 1000000,
-        "num_cpus": 16,
-        "time_seconds": 0.1266003000055207
-    },
-    {
-        "algorithm": "BucketSort",
-        "data_size": 10000000,
-        "num_cpus": 16,
-        "time_seconds": 1.0939541999978246
-    },
-    {
-        "algorithm": "BucketSort",
-        "data_size": 10000000,
-        "num_cpus": 16,
-        "time_seconds": 0.02531789999920875
-    },
-    {
-        "algorithm": "BucketSort",
-        "data_size": 10000000,
-        "num_cpus": 16,
-        "time_seconds": 0.03429159999359399
-    },
-    {
-        "algorithm": "BucketSort",
-        "data_size": 10000000,
-        "num_cpus": 4,
-        "time_seconds": 0.00503230000322219
-    },
-    {
-        "algorithm": "SelectionSort",
-        "data_size": 1000000,
-        "num_cpus": 16,
-        "time_seconds": 40.21505449998949
-    },
-    {
-        "algorithm": "SelectionSort",
         "commTime": 1.5439352999674156,
         "dataSize": 1000000,
         "numCpus": 16,
@@ -169,7 +91,7 @@
         "algorithm": "RankSort",
         "commTime": 0.0004789999802596867,
         "dataSize": 640,
-        "numCpus": 16,
+        "numCpus": 4,
         "sortTime": 0.0026489000010769814,
         "totalTime": 0.002671599999302998
     },
@@ -177,16 +99,16 @@
         "algorithm": "RankSort",
         "commTime": 0.001679799985140562,
         "dataSize": 64000,
-        "numCpus": 16,
+        "numCpus": 8,
         "sortTime": 7.431888099992648,
         "totalTime": 7.432013799989363
     },
     {
         "algorithm": "RankSort",
-        "commTime": 5.521043099957751,
-        "dataSize": 500000,
-        "numCpus": 16,
-        "sortTime": 410.53934980003396,
-        "totalTime": 416.0563640000182
+        "commTime": 0.6592225999629591,
+        "dataSize": 50000,
+        "numCpus": 2,
+        "sortTime": 3.5308526000299025,
+        "totalTime": 4.188768099993467
     }
 ]

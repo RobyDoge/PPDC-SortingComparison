@@ -19,28 +19,51 @@ void RankSort::Sort(std::vector<int>& data, double& commTime)
 	MPI_Scatter(data.data(), localSize, MPI_INT, localData.data(), localSize, MPI_INT, 0, MPI_COMM_WORLD);
 	commTime += MPI_Wtime() - startTime;
 
-	std::vector<int> localRanks(n, -1);
+	std::vector<int> localRanks(localSize, 0);
 
-	for (int i = 0; i < localSize; ++i) {
-		int global_idx = _rank * localSize + i;
-		int rank_val = 0;
-
-		for (int j = 0; j < n; ++j) {
-			if (data[j] < data[global_idx] ||
-				(data[j] == data[global_idx] && j < global_idx)) {
-				rank_val++;
-			}
+	for (int i = 0; i < localSize; ++i)
+	{
+		int global_i = _rank * localSize + i;
+		for (int j = 0; j < n; ++j)
+		{
+			if (data[j] < data[global_i])
+				localRanks[i]++;
 		}
 	}
 
-	std::vector<int> sortedData(n, -1);
+	std::vector<int> globalRanking;
+	if (_rank == 0)
+		globalRanking.resize(n);
 
 	startTime = MPI_Wtime();
-	MPI_Reduce(localRanks.data(), sortedData.data(), n, MPI_INT, MPI_MAX, 0, MPI_COMM_WORLD);
+	MPI_Gather(localRanks.data(), localSize, MPI_INT,
+		globalRanking.data(), localSize, MPI_INT,
+		0, MPI_COMM_WORLD);
 	commTime += MPI_Wtime() - startTime;
 
-	data = sortedData;
+	std::vector<int> sorted(n);
+	if (_rank == 0)
+	{
+		std::vector<int> all_data(n);
 
+		startTime = MPI_Wtime();
+		MPI_Gather(localData.data(), localSize, MPI_INT, all_data.data(), localSize, MPI_INT, 0, MPI_COMM_WORLD);
+		commTime += MPI_Wtime() - startTime;
+
+		for (int i = 0; i < n; ++i)
+		{
+			sorted[globalRanking[i]] = data[i];
+		}
+		data = sorted;
+	}
+	else
+	{
+		startTime = MPI_Wtime();
+		MPI_Gather(localData.data(), localSize, MPI_INT, nullptr, localSize, MPI_INT, 0, MPI_COMM_WORLD);
+		commTime += MPI_Wtime() - startTime;	
+	}
 }
+
+
 
 
