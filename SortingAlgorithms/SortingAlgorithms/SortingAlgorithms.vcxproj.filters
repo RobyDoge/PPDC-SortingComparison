@@ -33,6 +33,12 @@
     <ClCompile Include="OddEvenSort.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ShellSort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RankSort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SortFactory.h">
@@ -54,6 +60,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="OddEvenSort.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShellSort.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RankSort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -5,7 +5,9 @@
 #include "SelectionSort.h"
 #include "BucketSort.h"
 #include "OddEvenSort.h"
+#include "ShellSort.h"
 #include "ISortingAlgorithm.h"
+#include "RankSort.h"
 
 
 std::unique_ptr<ISortingAlgorithm> SortFactory::CreateSortAlgorithm(const std::string& algorithmName)
@@ -20,6 +22,14 @@ std::unique_ptr<ISortingAlgorithm> SortFactory::CreateSortAlgorithm(const std::s
 
 	if (algorithmName == "OddEvenSort") {
 		return std::make_unique<OddEvenSort>();
+	}
+
+	if (algorithmName == "ShellSort") {
+		return std::make_unique<ShellSort>();
+	}
+
+	if (algorithmName == "RankSort") {
+		return std::make_unique<RankSort>();
 	}
 
     // Add more sort algorithms here as needed

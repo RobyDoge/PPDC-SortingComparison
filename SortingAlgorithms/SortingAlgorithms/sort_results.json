@@ -116,5 +116,69 @@
         "numCpus": 16,
         "sortTime": 0.09940780006581917,
         "totalTime": 0.12959640001645312
+    },
+    {
+        "algorithm": "OddEvenSort",
+        "commTime": 0.0028777999978046864,
+        "dataSize": 64,
+        "numCpus": 16,
+        "sortTime": 5.6899996707215905e-05,
+        "totalTime": 0.0029346999945119023
+    },
+    {
+        "algorithm": "BucketSort",
+        "commTime": 0.003881400014506653,
+        "dataSize": 64,
+        "numCpus": 16,
+        "sortTime": 5.879998207092285e-05,
+        "totalTime": 0.003940199996577576
+    },
+    {
+        "algorithm": "SelectionSort",
+        "commTime": 0.6144407999527175,
+        "dataSize": 1000000,
+        "numCpus": 16,
+        "sortTime": 40.39518080005655,
+        "totalTime": 41.00962160000927
+    },
+    {
+        "algorithm": "ShellSort",
+        "commTime": 0.008691299997735769,
+        "dataSize": 1000000,
+        "numCpus": 16,
+        "sortTime": 0.7823972000041977,
+        "totalTime": 0.7910885000019334
+    },
+    {
+        "algorithm": "ShellSort",
+        "commTime": 0.01905490001081489,
+        "dataSize": 1000000,
+        "numCpus": 16,
+        "sortTime": 0.7985333999968134,
+        "totalTime": 0.8175883000076283
+    },
+    {
+        "algorithm": "ShellSort",
+        "commTime": 0.01724299998022616,
+        "dataSize": 1000000,
+        "numCpus": 16,
+        "sortTime": 0.9489305000170134,
+        "totalTime": 0.9568514999991748
+    },
+    {
+        "algorithm": "RankSort",
+        "commTime": 0.0004789999802596867,
+        "dataSize": 640,
+        "numCpus": 16,
+        "sortTime": 0.0026489000010769814,
+        "totalTime": 0.002671599999302998
+    },
+    {
+        "algorithm": "RankSort",
+        "commTime": 0.001679799985140562,
+        "dataSize": 64000,
+        "numCpus": 16,
+        "sortTime": 7.431888099992648,
+        "totalTime": 7.432013799989363
     }
 ]

@@ -19,7 +19,7 @@ std::vector<int> ReadData(const std::string& filepath) {
 	}
 
     int number;
-    int max_numbers = 64;
+    int max_numbers = 64000;
     while(f>>number /*&& max_numbers*/)
     {
         max_numbers--;
@@ -50,54 +50,58 @@ int main(int argc, char** argv) {
     std::string algorithmName = argc > 1 ? argv[1] : "SelectionSort";
     std::string filepath = argc > 2 ? argv[2] : "../../Data/1m_data.txt";
 	int dataSize = filepath.contains("10") ? 10'000'000 : 1'000'000;
-    //dataSize = 64;
-   
+    //dataSize = 64000;
 
     try {
-        std::unique_ptr<ISortingAlgorithm> sorter = SortFactory::CreateSortAlgorithm(algorithmName);
+	    std::unique_ptr<ISortingAlgorithm> sorter = SortFactory::CreateSortAlgorithm(algorithmName);
 
         std::vector<int> data;
-        if (rank == 0) 
+        if (rank == 0)
         {
             data = ReadData(filepath);
-			if (data.empty()) {
-				std::cerr << "Error reading data from file: " << filepath << std::endl;
-				MPI_Abort(MPI_COMM_WORLD, 1);
-				return 1;
-			}
-            std::cout<< "Data done reading\n"<<std::endl;
+            if (data.empty()) {
+                std::cerr << "Error reading data from file: " << filepath << std::endl;
+                MPI_Abort(MPI_COMM_WORLD, 1);
+                return 1;
+            }
+            std::cout << "Data done reading\n" << std::endl;
         }
+
+        double commTime{}, startTime = MPI_Wtime();
         MPI_Bcast(&dataSize, 1, MPI_INT, 0, MPI_COMM_WORLD);
-        
+		commTime += MPI_Wtime() - startTime;
 
         if (rank != 0) {
             data.resize(dataSize);
         }
 
+		startTime = MPI_Wtime();
         MPI_Bcast(data.data(), dataSize, MPI_INT, 0, MPI_COMM_WORLD);
+		commTime += MPI_Wtime() - startTime;
 
         double startTotalTime = MPI_Wtime();
-        double commTime{};
-        sorter->Sort(data,commTime);
+        double sortCommTime{};
+        sorter->Sort(data, sortCommTime);
         double endTotalTime = MPI_Wtime();
-		if (rank == 0) 
+		if (rank == 0)
         {
+
 			int sorted = IsSorted(data);
 			std::cout << "Array is " << (sorted == -1 ? "correctly" : "not") << " sorted." <<std::endl;
-			std::cout << "The problem happened at index: " << sorted << std::endl;
             if(sorted != -1)
             {
-				/*for (int i = sorted - 2; i <= sorted + 2; i++)
+                std::cout << "The problem happened at index: " << sorted << std::endl;
+				for (int i = sorted - 2; i <= sorted + 2; i++)
 				{
 					std::cout << data[i] << " ";
 				}
-				std::cout << std::endl;*/
+				std::cout << std::endl;
 
-				for (auto i : data)
-				{
-					std::cout << i << " ";
-				}
-                std::cout << std::endl;
+				//for (auto i : data)
+				//{
+				//	std::cout << i << " ";
+				//}
+				//std::cout << std::endl;
 
 
                 MPI_Abort(MPI_COMM_WORLD, 1);
@@ -111,7 +115,7 @@ int main(int argc, char** argv) {
             // Write results to JSON file
             std::string filename = "sort_results.json";
             JsonWriter writer(filename);
-			writer.AddEntry(sorter->GetName(), size, dataSize, elapsedTime, commTime);
+			writer.AddEntry(sorter->GetName(), size, dataSize, elapsedTime, commTime+sortCommTime, elapsedTime-sortCommTime);
         }
     }
     catch (const std::exception& e) {

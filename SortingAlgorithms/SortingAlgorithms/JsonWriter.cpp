@@ -27,7 +27,7 @@ JsonWriter::~JsonWriter()
 	outputFile << _data.dump(4); // Pretty-print with 4-space indent
 }
 
-void JsonWriter::AddEntry(const std::string& algorithm, int numCpus, int dataSize, double totalTime, double commTime)
+void JsonWriter::AddEntry(const std::string& algorithm, int numCpus, int dataSize, double totalTime, double commTime, double sortTime)
 {
 	json entry = {
 			{"algorithm", algorithm},
@@ -35,7 +35,7 @@ void JsonWriter::AddEntry(const std::string& algorithm, int numCpus, int dataSiz
 			{"dataSize", dataSize},
 			{"totalTime", totalTime},
 			{"commTime", commTime},
-			{	"sortTime", totalTime-commTime}
+			{	"sortTime", sortTime}
 	};
 	_data.push_back(entry);
 }
